@@ -9,10 +9,10 @@ package app
 #include <lauxlib.h>
 
 // Forward declaration of the Go function
-extern void goPrint(char*);
+extern void GoPrint(char*);
 
 // Wrapper to call the Go function from Lua
-extern int luaGoPrint(lua_State *L);
+extern int LuaGoPrint(lua_State *L);
 
 // Helper function to execute Lua code from a string
 static int runLuaString(lua_State *L, const char *code) {
@@ -43,33 +43,33 @@ import (
 
 var output string
 
-//export goPrint
-func goPrint(msg *C.char) {
+//export GoPrint
+func GoPrint(msg *C.char) {
 	goStr := C.GoString(msg)
 	// fmt.Println("goPrint called with:", goStr) // Debug statement
 	output += goStr + "\n"
 }
 
-//export luaGoPrint
-func luaGoPrint(L *C.lua_State) C.int {
+//export LuaGoPrint
+func LuaGoPrint(L *C.lua_State) C.int {
 	str := C.luaL_checklstring(L, 1, nil)
-	// fmt.Println("luaGoPrint called with:", C.GoString(str)) // Debug statement
-	goPrint((*C.char)(str))
+	// fmt.Println("LuaGoPrint called with:", C.GoString(str)) // Debug statement
+	GoPrint((*C.char)(str))
 	return 0
 }
 
 func registerLuaFunctions(L *C.lua_State) {
 	// Register the Go function to Lua
-	funcName := C.CString("goPrint")
+	funcName := C.CString("GoPrint")
 	defer C.free(unsafe.Pointer(funcName))
 	// fmt.Println("Registering goPrint function in Lua") // Debug statement
-	C.lua_pushcclosure(L, (C.lua_CFunction)(unsafe.Pointer(C.luaGoPrint)), 0)
+	C.lua_pushcclosure(L, (C.lua_CFunction)(unsafe.Pointer(C.LuaGoPrint)), 0)
 	C.lua_setglobal(L, funcName)
 
 	// Override the Lua print function to call goPrint
 	printName := C.CString("print")
 	defer C.free(unsafe.Pointer(printName))
-	C.lua_pushcclosure(L, (C.lua_CFunction)(unsafe.Pointer(C.luaGoPrint)), 0)
+	C.lua_pushcclosure(L, (C.lua_CFunction)(unsafe.Pointer(C.LuaGoPrint)), 0)
 	C.lua_setglobal(L, printName)
 }
 
