@@ -10,16 +10,12 @@ window.runLua = function () {
 
     if (script === "") return;
 
-    try {
-        RunLua(script)
-            .then((result) => {
-                console.log(result);
-                outputElement.innerHTML = result;
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    } catch(err) {
-        console.log(err);
-    }
+    RunLua(script)
+        .then((result) => {
+            console.log(result);
+            outputElement.innerHTML = result;
+        })
+        .catch((err) => {
+            console.error(err);
+        });
 };
