@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lua Playground</title>
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-gray-100 text-gray-900 flex items-center justify-center h-screen">
+    <div class="container mx-auto p-4">
+        <h1 class="text-4xl font-bold mb-4">Lua Playground</h1>
+        <textarea id="scriptInput" class="w-full p-2 border border-gray-300 rounded mb-4" rows="10"
+            placeholder="Write your Lua script here..."></textarea>
+        <button onclick="runLua()" id="runButton" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Run Lua
+            Script</button>
+        <pre id="output" class="mt-4 p-2 bg-white border border-gray-300 rounded"></pre>
+    </div>
+    <script type="module" src="/src/index.js"></script>
+</body>
+
+</html>
