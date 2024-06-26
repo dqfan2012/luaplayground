@@ -2,10 +2,7 @@ module github.com/dqfan2012/luaplayground
 
 go 1.22.4
 
-require (
-	github.com/wailsapp/wails/v2 v2.9.1
-	github.com/yuin/gopher-lua v1.1.1
-)
+require github.com/wailsapp/wails/v2 v2.9.1
 
 require (
 	github.com/bep/debounce v1.2.1 // indirect
